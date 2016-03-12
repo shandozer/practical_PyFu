@@ -10,7 +10,7 @@ import sys
 import re
 import os
 from os import path
-import shutil
+import glob
 
 """Baby Names exercise
 
@@ -59,7 +59,7 @@ def extract_names(filename):
     year_pattern = r'in\s\d\d\d\d<'
 
     year_match = re.search(year_pattern, text)
-    print year_match.group().strip('in <')
+    #print year_match.group().strip('in <')
 
     if year_match:
         year = year_match.group().strip('in <')
@@ -109,32 +109,27 @@ def main():
     # +++your code here+++
     # For each filename, get the names, then either print the text output
     # or write it to a summary file
-    for filename in args:
+    for file_path in args:
 
-        file_path = path.abspath(filename)
+        path_list = glob.glob(file_path)
 
-        if path.exists(file_path):
+        for any_path in path_list:
 
-            baby_names = extract_names(filename)
+            baby_names = extract_names(any_path)
 
-        else:
-
-            print 'file %s does not exist' % filename
-            continue
-
-        if summary:
-
-                new_filename = filename.replace('.html', '.summary')
+            if summary:
+                new_filename = any_path.replace('.html', '.summary')
                 print new_filename
                 g = open(path.join(new_filename), 'wb')
 
                 g.writelines(' \n'.join(baby_names))
                 g.close()
 
-        else:
-            print baby_names[0]  # year
-            for name in baby_names[1:]:
-                print name
+            else:
+                print baby_names[0]  # year
+                for name in baby_names[1:]:
+                    print name
+
   
 if __name__ == '__main__':
     main()
