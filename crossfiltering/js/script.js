@@ -1,5 +1,7 @@
         var dataTable = dc.dataTable("#dc-table-graph");
 
+        var magnitudeChart = dc.barChart("#dc-magnitude-chart");
+
         d3.csv("data/quakes.csv", function(data) {
 
             var dtgFormat = d3.time.format("%Y-%m-%dT%H:%M:%S");
@@ -15,9 +17,29 @@
 
             var facts = crossfilter(data);
 
+            var magValue = facts.dimension(function(d) {
+                return d.mag;
+            });
+
+            var magValueGroupCount = magValue.group()
+                .reduceCount(function(d) { return d.mag; });
+
             var timeDimension = facts.dimension(function(d) {
                 return d.dtg;
             });
+
+
+            magnitudeChart.width(480).height(150)
+                .margins({top: 10, right: 10, bottom: 20, left: 40})
+                .dimension(magValue)
+                .group(magValueGroupCount)
+                .transitionDuration(500)
+                .centerBar(true)
+                .gap(65)
+                .filter([3,5])
+                .x(d3.scale.linear().domain([0.5, 7.5]))
+                .elasticY(true)
+                .xAxis().tickFormat();
 
             //Table of quake data setup
             dataTable.width(960).height(800)
