@@ -4,6 +4,8 @@
 
         var depthChart = dc.barChart("#dc-depth-chart");
 
+        var timeChart = dc.lineChart("#dc-time-chart");
+
         d3.csv("data/quakes.csv", function(data) {
 
             var dtgFormat = d3.time.format("%Y-%m-%dT%H:%M:%S");
@@ -31,6 +33,13 @@
             });
 
             var depthValueGroup = depthValue.group();
+
+            var volumeByHour = facts.dimension(function(d) {
+               return d3.time.hour(d.dtg);
+            });
+
+            var volumeByHourGroup = volumeByHour.group()
+                .reduceCount(function(d) { return d.dtg; });
 
             var timeDimension = facts.dimension(function(d) {
                 return d.dtg;
@@ -61,6 +70,14 @@
                 .elasticY(true)
                 .xAxis().tickFormat(function(v) { return v;});
 
+            timeChart.width(960).height(150)
+                .margins({top: 10, right: 10, bottom: 20, left: 40})
+                .dimension(volumeByHour)
+                .group(volumeByHourGroup)
+                .transitionDuration(500)
+                .elasticY(true)
+                .x(d3.time.scale().domain([new Date(2013, 6, 18), new Date(2013, 6, 24)]))
+                .xAxis();
 
             //Table of quake data setup
             dataTable.width(960).height(800)

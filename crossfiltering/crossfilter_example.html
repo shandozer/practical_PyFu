@@ -14,43 +14,49 @@
     <style type="text/css"></style>
 </head>
 <body>
+    <div class="dash" style="background-color: lightgray;">
 
-    <div class="container" style="font: 12px sans-serif;">
-        <div class="row">
-            <div class="span6" id="dc-magnitude-chart">
-                <h4>Events by Magnitude</h4>
+        <div class="container">
+            <h2>Crossfilter Dashboard Example</h2>
+        </div>
+
+        <div class="container" style="font: 12px sans-serif;">
+            <div class="row">
+                <div class="span6" id="dc-magnitude-chart">
+                    <h4>Events by Magnitude</h4>
+                </div>
+                <div class="span6" id="dc-depth-chart">
+                    <h4>Events by Depth (km)</h4>
+                </div>
             </div>
-            <div class="span6" id="dc-depth-chart">
-                <h4>Events by Depth (km)</h4>
+            <div class="row">
+                <div class="span12" id="dc-time-chart">
+                      <h4>Events per hour</h4>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="span12" id="dc-time-chart">
-                  <h4>Events per hour</h4>
+
+        <div class="container" style="font: 12px sans-serif;">
+            <div class="row">
+                <div class="span12">
+                    <table class="table table-hover" id="dc-table-graph">
+                        <thead>
+                            <tr class="header">
+                                <th>DTG</th>
+                                <th>Lat</th>
+                                <th>Long</th>
+                                <th>Depth</th>
+                                <th>Magnitude</th>
+                                <th>Google Map</th>
+                                <th>Open Street Map</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
+
     </div>
-
-    <div class="container" style="font: 12px sans-serif;">
-        <div class="row">
-            <div class="span12">
-                <table class="table table-hover" id="dc-table-graph">
-                    <thead>
-                        <tr class="header">
-                            <th>DTG</th>
-                            <th>Lat</th>
-                            <th>Long</th>
-                            <th>Depth</th>
-                            <th>Magnitude</th>
-                            <th>Google Map</th>
-                            <th>Open Street Map</th>
-                        </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
-    </div>
-
     <script src="js/script.js" type="text/javascript"></script>
 
 </body>
