@@ -6,6 +6,8 @@
 
         var dayOfWeekChart = dc.rowChart("#dc-dayweek-chart");
 
+        var islandChart = dc.pieChart("#dc-island-chart");
+
         var timeChart = dc.lineChart("#dc-time-chart");
 
         d3.csv("data/quakes.csv", function(data) {
@@ -22,6 +24,8 @@
             });
 
             var facts = crossfilter(data);
+
+            var all = facts.groupAll();
 
             var magValue = facts.dimension(function(d) {
                 return d.mag;
@@ -66,9 +70,22 @@
 
             var dayOfWeekGroup = dayOfWeek.group();
 
+            var islands = facts.dimension(function (d) {
+                if (d.lat <= -40.555907 && d.long <= 174.590607)
+                    return "South";
+                else
+                    return "North";
+                });
+
+            var islandsGroup = islands.group();
+
             var timeDimension = facts.dimension(function(d) {
                 return d.dtg;
             });
+
+            dc.dataCount(".dc-data-count")
+                .dimension(facts)
+                .group(all);
 
             magnitudeChart.width(480).height(150)
                 .margins({top: 10, right: 10, bottom: 20, left: 40})
@@ -116,6 +133,12 @@
                 .elasticX(true)
                 .xAxis().ticks(4);
 
+            islandChart.width(250).height(220)
+                .radius(100)
+                .innerRadius(30)
+                .dimension(islands)
+                .group(islandsGroup)
+                .title(function(d) { return d.value;});
 
             //Table of quake data setup
             dataTable.width(960).height(800)
