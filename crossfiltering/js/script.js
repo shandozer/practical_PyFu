@@ -4,6 +4,8 @@
 
         var depthChart = dc.barChart("#dc-depth-chart");
 
+        var dayOfWeekChart = dc.rowChart("#dc-dayweek-chart");
+
         var timeChart = dc.lineChart("#dc-time-chart");
 
         d3.csv("data/quakes.csv", function(data) {
@@ -41,10 +43,32 @@
             var volumeByHourGroup = volumeByHour.group()
                 .reduceCount(function(d) { return d.dtg; });
 
+            var dayOfWeek = facts.dimension(function(d) {
+                var day = d.dtg.getDay();
+                switch (day) {
+                    case 0:
+                        return "0.Sun";
+                    case 1:
+                        return "1.Mon";
+                    case 2:
+                        return "2.Tue";
+                    case 3:
+                        return "3.Wed";
+                    case 4:
+                        return "4.Thu";
+                    case 5:
+                        return "5.Fri";
+                    case 6:
+                        return "6.Sat";
+                }
+
+            });
+
+            var dayOfWeekGroup = dayOfWeek.group();
+
             var timeDimension = facts.dimension(function(d) {
                 return d.dtg;
             });
-
 
             magnitudeChart.width(480).height(150)
                 .margins({top: 10, right: 10, bottom: 20, left: 40})
@@ -78,6 +102,20 @@
                 .elasticY(true)
                 .x(d3.time.scale().domain([new Date(2013, 6, 18), new Date(2013, 6, 24)]))
                 .xAxis();
+
+            //row chart day of week
+            dayOfWeekChart.width(300).height(220)
+                .margins({top: 5, left: 10, right: 10, bottom: 20})
+                .dimension(dayOfWeek)
+                .group(dayOfWeekGroup)
+                .colors(d3.scale.category10())
+                .label(function (d) {
+                    return d.key.split(".")[1];
+                })
+                .title(function(d) { return d.value;})
+                .elasticX(true)
+                .xAxis().ticks(4);
+
 
             //Table of quake data setup
             dataTable.width(960).height(800)
