@@ -83,10 +83,12 @@
                 return d.dtg;
             });
 
+            //overall data count
             dc.dataCount(".dc-data-count")
                 .dimension(facts)
                 .group(all);
 
+            //bar chart
             magnitudeChart.width(480).height(150)
                 .margins({top: 10, right: 10, bottom: 20, left: 40})
                 .dimension(magValue)
@@ -99,7 +101,7 @@
                 .elasticY(true)
                 .xAxis().tickFormat();
 
-
+            //bar chart
             depthChart.width(480).height(150)
                 .margins({top: 10, right: 10, bottom: 20, left: 40})
                 .dimension(depthValue)
@@ -111,6 +113,7 @@
                 .elasticY(true)
                 .xAxis().tickFormat(function(v) { return v;});
 
+            //line chart
             timeChart.width(960).height(150)
                 .margins({top: 10, right: 10, bottom: 20, left: 40})
                 .dimension(volumeByHour)
@@ -133,6 +136,7 @@
                 .elasticX(true)
                 .xAxis().ticks(4);
 
+            // Pie Chart
             islandChart.width(250).height(220)
                 .radius(100)
                 .innerRadius(30)
