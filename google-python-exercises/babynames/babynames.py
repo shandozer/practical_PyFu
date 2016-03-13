@@ -8,7 +8,6 @@
 
 import sys
 import re
-import os
 from os import path
 import glob
 
@@ -119,9 +118,8 @@ def main():
 
             if summary:
                 new_filename = any_path.replace('.html', '.summary')
-                print new_filename
+                print 'writing %s' % new_filename
                 g = open(path.join(new_filename), 'wb')
-
                 g.writelines(' \n'.join(baby_names))
                 g.close()
 
