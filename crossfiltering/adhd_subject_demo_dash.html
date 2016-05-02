@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+    <meta charset = "UTF-8">
+    <title>Participant Demographics Dashboard</title>
+
+    <script src="js/d3.js" type="text/javascript"></script>
+    <script src="js/crossfilter.js" type="text/javascript"></script>
+    <script src="js/dc.js" type="text/javascript"></script>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/dc.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        h4 span {
+            font-size: 14px;
+            font-weight: normal;
+        }
+        h2 {
+            float: right;
+        }
+        h2 span {
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        #description h5 {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="dash" style="background-color: lightgray;">
+
+        <div class="container" style="font: 12px sans-serif;">
+
+            <div class="dc-data-count" style="float: left;">
+                <h2>Participant Demographics Dashboard
+                    <span>
+                        <span class="filter-count"></span>
+                        selected out of
+                        <span class="total-count"></span>
+                        records |
+                        <a href="javascript:dc.filterAll(); dc.renderAll();">Reset All</a>
+                    </span>
+                </h2>
+                <div id="description">
+                    <h5>This prototype (v0.0.1) contains only a small subset of available ADHD/ASD
+                        demographic information
+                    </h5>
+                </div>
+                <h5>Click & drag to create sliders for filtering bar chart data, or click categorical
+                    charts to filter data qualitatively.
+                    <span><a href="#dc-table-graph">Jump to data table</a></span>
+                </h5>
+            </div>
+
+            <div class="row">
+                <div class="span6" id="dc-magnitude-chart">
+                    <h4>Age</h4>
+                </div>
+                <div class="span6" id="dc-depth-chart">
+                    <h4>IQ</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6" id="dc-motionframes-chart">
+                    <h4>MotionFrames</h4>
+                </div>
+                <div class="span6" id="dc-motiontime-chart">
+                    <h4>Motion Time</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="span6" id="dc-meanfd-chart">
+                    <h4>Mean FD</h4>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="span4" id="dc-island-chart">
+                    <h4>Gender</h4>
+                </div>
+                <div class="span4" id="dc-dx-chart">
+                    <h4>Diagnoses
+                        <a class="reset"
+                               href="javascript:dxChart.filterAll(); dc.redrawAll();"
+                               style="display: none;">
+                                reset
+                        </a>
+                    </h4>
+                </div>
+                <div class="span4" id="dc-subtype-chart">
+                    <h4>SubTypes
+                        <a class="reset"
+                               href="javascript:subtypeChart.filterAll(); dc.redrawAll();"
+                               style="display: none;">
+                                reset
+                        </a>
+                    </h4>
+                </div>
+
+                <div class="span4" id="dc-dayweek-chart">
+                    <h4>Day of the Week
+                        <a class="reset"
+                           href="javascript:dayOfWeekChart.filterAll(); dc.redrawAll();"
+                           style="display: none;">
+                            reset
+                        </a>
+                    </h4>
+                </div>
+            </div>
+           <div class="row">
+                <div class="span12" id="dc-time-chart">
+                      <h4>Scans per Day</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" style="font: 12px sans-serif;">
+            <div class="row">
+                <div class="span12">
+                    <table class="table table-hover" id="dc-table-graph">
+                        <thead>
+                            <tr class="header">
+                                <th>Date</th>
+                                <th>ID</th>
+                                <th>Gender</th>
+                                <th>IQ</th>
+                                <th>Age</th>
+                                <th>Dx</th>
+                                <th>SubType</th>
+                                <th>MotionFrames</th>
+                                <th>MotionTime</th>
+                                <th>Mean FD</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="js/script.js" type="text/javascript"></script>
+</body>
+</html>
