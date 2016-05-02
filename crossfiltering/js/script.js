@@ -1,12 +1,15 @@
+//Participant Demographics Dashboard
+//Shannon T. Buckley, 5-1-16
+
         var dataTable = dc.dataTable("#dc-table-graph");
 
-        var ageChart = dc.barChart("#dc-magnitude-chart");
+        var ageChart = dc.barChart("#dc-age-chart");
 
-        var IQChart = dc.barChart("#dc-depth-chart");
+        var IQChart = dc.barChart("#dc-iq-chart");
 
         var dayOfWeekChart = dc.rowChart("#dc-dayweek-chart");
 
-        var genderChart = dc.pieChart("#dc-island-chart");
+        var genderChart = dc.pieChart("#dc-gender-chart");
 
         var dxChart = dc.pieChart("#dc-dx-chart");
 
