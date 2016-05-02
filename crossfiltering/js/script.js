@@ -16,6 +16,8 @@
 
         var motionTimeChart = dc.lineChart("#dc-motiontime-chart");
 
+        var meanFDChart = dc.lineChart("#dc-meanfd-chart");
+
         var motionFrameChart = dc.barChart("#dc-motionframes-chart");
 
         d3.csv("data/ADHD_data.csv", function(data) {
@@ -33,6 +35,7 @@
                 d.SubType = +d.ADHD_Subtype;
                 d.motionFrames = +d.motion_Frames;
                 d.motionTime = +d.motion_Time;
+                d.meanFD = d3.round(+d.MeanFD, 2);
             });
 
             var facts = crossfilter(data);
@@ -65,6 +68,13 @@
 
             var motionByMinutesGroup = motionByMinutes.group()
                 .reduceCount(function(d) { return d.motionTime; });
+
+            var meanFDValue = facts.dimension(function(d) {
+               return d.meanFD;
+            });
+
+            var meanFDValueGroup = meanFDValue.group()
+                .reduceCount(function(d) { return d.meanFD; });
 
             var motionFramesValue = facts.dimension(function(d) {
                return d.motionFrames;
@@ -200,7 +210,7 @@
                 .group(volumeByHourGroup)
                 .transitionDuration(500)
                 .elasticY(true)
-                .x(d3.time.scale().domain([new Date(2010, 1, 1), new Date(2016, 4, 30)]))
+                .x(d3.time.scale().domain([new Date(2011, 6, 1), new Date(2016, 2, 30)]))
                 .xAxis().tickFormat();
 
             //motion_Time line chart
@@ -210,8 +220,18 @@
                 .group(motionByMinutesGroup)
                 .transitionDuration(500)
                 .elasticY(true)
-                .x(d3.time.scale().domain([0, 1000.0]))
+                .x(d3.scale.linear().domain([0, 1000.0]))
                 .xAxis().tickFormat();
+
+            //meanFD line chart
+            meanFDChart.width(480).height(150)
+                .margins({top: 10, right: 10, bottom: 20, left: 40})
+                .dimension(meanFDValue)
+                .group(meanFDValueGroup)
+                .transitionDuration(500)
+                .elasticY(true)
+                .x(d3.scale.linear().domain([0.0,0.2]))
+                .xAxis().ticks(8);
 
             //row chart day of week
             dayOfWeekChart.width(300).height(220)
@@ -264,7 +284,8 @@
                     function(d) {return d.Dx; },
                     function(d) {return d.SubType; },
                     function(d) {return d.motionFrames; },
-                    function(d) {return d.motionTime; }
+                    function(d) {return d.motionTime; },
+                    function(d) {return d.meanFD; }
                 ])
                 .sortBy(function(d) {return d.dtg; })
                 .order(d3.ascending);
