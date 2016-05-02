@@ -50,7 +50,14 @@
                     <h4>IQ</h4>
                 </div>
             </div>
-
+            <div class="row">
+                <div class="span6" id="dc-motionframes-chart">
+                    <h4>MotionFrames</h4>
+                </div>
+                <div class="span6" id="dc-motiontime-chart">
+                    <h4>Motion Time</h4>
+                </div>
+            </div>
             <div class="row">
                 <div class="span12" id="dc-time-chart">
                       <h4>Scans per Day</h4>
@@ -68,13 +75,25 @@
                     </h4>
                 </div>
                 <div class="span4" id="dc-island-chart">
-                    <h4>Gender Breakdown</h4>
+                    <h4>Gender</h4>
                 </div>
                 <div class="span4" id="dc-dx-chart">
-                    <h4>Diagnoses</h4>
+                    <h4>Diagnoses
+                        <a class="reset"
+                               href="javascript:dxChart.filterAll(); dc.redrawAll();"
+                               style="display: none;">
+                                reset
+                        </a>
+                    </h4>
                 </div>
                 <div class="span4" id="dc-subtype-chart">
-                    <h4>SubTypes</h4>
+                    <h4>SubTypes
+                        <a class="reset"
+                               href="javascript:subtypeChart.filterAll(); dc.redrawAll();"
+                               style="display: none;">
+                                reset
+                        </a>
+                    </h4>
                 </div>
             </div>
         </div>
@@ -85,7 +104,7 @@
                     <table class="table table-hover" id="dc-table-graph">
                         <thead>
                             <tr class="header">
-                                <th>DTG</th>
+                                <th>Date</th>
                                 <th>ID</th>
                                 <th>Gender</th>
                                 <th>IQ</th>
@@ -93,6 +112,7 @@
                                 <th>Dx</th>
                                 <th>SubType</th>
                                 <th>MotionFrames</th>
+                                <th>MotionTime</th>
                             </tr>
                         </thead>
                     </table>
