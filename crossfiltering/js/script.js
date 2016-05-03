@@ -275,9 +275,9 @@
             dataTable.width(960).height(800)
                 .dimension(timeDimension)
                     .group(function(d) {
-                        return "Scans"
+                        return ""
                     })
-                    .size(50)
+                    .size(10000)
                 .columns([
                     function(d) {return d.dtg; },
                     function(d) {return d.ID; },

@@ -2,6 +2,7 @@
 <html lang = "en">
 <head>
     <meta charset = "UTF-8">
+    <meta name="author" content="Shannon T. Buckley">
     <title>Participant Demographics Dashboard</title>
 
     <script src="js/d3.js" type="text/javascript"></script>
@@ -53,6 +54,10 @@
                     charts to filter data qualitatively.
                     <span><a href="#dc-table-graph">Jump to data table</a></span>
                 </h5>
+                <div class='button'>
+                    <a href="#" id ="export" role='button'>Click On This Link To Export The Table Data into a CSV File
+                </a>
+                </div>
             </div>
 
             <div class="row">
@@ -121,7 +126,7 @@
 
         <div class="container" style="font: 12px sans-serif;">
             <div class="row">
-                <div class="span12">
+                <div class="span12" id="data-dash">
                     <table class="table table-hover" id="dc-table-graph">
                         <thead>
                             <tr class="header">
@@ -144,5 +149,6 @@
 
     </div>
     <script src="js/script.js" type="text/javascript"></script>
+    <script src="js/export.js" type="text/javascript"></script>
 </body>
 </html>
