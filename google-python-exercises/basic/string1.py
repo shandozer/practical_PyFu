@@ -24,8 +24,13 @@
 # So donuts(5) returns 'Number of donuts: 5'
 # and donuts(23) returns 'Number of donuts: many'
 def donuts(count):
-  # +++your code here+++
-  return
+
+    if count >= 10:
+        result = 'many'
+    else:
+
+        result = str(count)
+    return 'Number of donuts: %s' % result
 
 
 # B. both_ends
@@ -34,8 +39,21 @@ def donuts(count):
 # so 'spring' yields 'spng'. However, if the string length
 # is less than 2, return instead the empty string.
 def both_ends(s):
-  # +++your code here+++
-  return
+
+    str_list = list(s)
+    new_str = []
+
+    if len(str_list) == 2:
+        return s + s
+    elif len(str_list) > 2:
+        new_str += str_list[0:1]
+        new_str += str_list[1:2]
+        new_str += str_list[-2:-1]
+        new_str += str_list[-1:]
+
+        return ''.join(new_str)
+    else:
+        return ''
 
 
 # C. fix_start
@@ -48,8 +66,16 @@ def both_ends(s):
 # Hint: s.replace(stra, strb) returns a version of string s
 # where all instances of stra have been replaced by strb.
 def fix_start(s):
-  # +++your code here+++
-  return
+    new_word = ''
+    first = s[0]
+    new_word += first
+    for letter in list(s)[1:]:
+        if letter == first:
+            letter = '*'
+
+        new_word += letter
+
+    return new_word
 
 
 # D. MixUp
@@ -60,8 +86,23 @@ def fix_start(s):
 #   'dog', 'dinner' -> 'dig donner'
 # Assume a and b are length 2 or more.
 def mix_up(a, b):
-  # +++your code here+++
-  return
+
+    a_list = list(a)
+    new_a = []
+
+    b_list = list(b)
+    new_b = []
+
+    if len(a_list) >= 2:
+        new_a.append(b_list.pop(0))
+        new_a.append(b_list.pop(0))
+        new_b.append(a_list.pop(0))
+        new_b.append(a_list.pop(0))
+
+        new_a += a_list[:]
+        new_b += b_list[:]
+
+    return ''.join(new_a) + ' ' + ''.join(new_b)
 
 
 # Provided simple test() function used in main() to print
