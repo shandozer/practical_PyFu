@@ -67,8 +67,38 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    # +++your code here+++
-    return
+
+    length_a = len(a)
+    if len(a) % 2 == 0:
+        #print 'even halves'
+        a_front_lim = (length_a / 2)
+
+    else:
+        a_front_lim = (length_a / 2) + 1
+
+    a_front = a[0:a_front_lim]
+
+    a_back = a[a_front_lim:]
+
+    # print a_front_lim
+    # print a[0:a_front_lim]
+    # print a_back
+
+    length_b = len(b)
+    if len(b) % 2 == 0:
+        #print 'even halves'
+        b_front_lim = (length_b / 2)
+
+        #print b_front_lim
+        #print b[0:b_front_lim]
+    else:
+        b_front_lim = (length_b/2) + 1
+
+    b_front = b[0:b_front_lim]
+
+    b_back = b[b_front_lim:]
+
+    return a_front + b_front + a_back + b_back
 
 
 # Simple provided test() function used in main() to print
