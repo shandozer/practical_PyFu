@@ -18,7 +18,16 @@
 
 
 def verbing(s):
-    return
+
+    if len(s) >= 3:
+        if 'ing' == s[-3:]:
+            verb = s + 'ly'
+        else:
+            verb = s + 'ing'
+    elif len(s) < 3:
+        verb = s
+
+    return verb
 
 
 # E. not_bad
@@ -30,7 +39,7 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-    # +++your code here+++
+    
     return
 
 
