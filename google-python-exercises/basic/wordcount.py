@@ -44,23 +44,18 @@ def build_words_dict(filename):
 
     with open(filename) as f:
 
-        text = f.read()
+        text = f.read().split()
 
         # print text
 
     words_dict = {}
 
-    for line in text.split('\n'):
+    for word in text:
 
-        word_list = line.split(' ')
-        # print word_list
-
-        for word in word_list:
-
-            if word in words_dict.keys():
-                words_dict[word.lower()] += 1
-            else:
-                words_dict[word.lower()] = 1
+        if word in words_dict.keys():
+            words_dict[word.lower()] += 1
+        else:
+            words_dict[word.lower()] = 1
 
     # print words_dict
 
@@ -76,11 +71,12 @@ def print_words(filename):
         print k, v
 
 
-def print_top(filename):
+def print_top(filename, n=20):
 
     words_dict = build_words_dict(filename)
 
-    return
+    for w in sorted(words_dict, key=words_dict.get, reverse=True)[0:n]:
+        print w, words_dict[w]
 
 # +++your code here+++
 # Define print_words(filename) and print_top(filename) functions.
@@ -96,14 +92,12 @@ def print_top(filename):
 
 def main():
 
-    if len(sys.argv) != 3:
+    if len(sys.argv) < 3:
         print 'usage: ./wordcount.py {--count | --topcount} file'
         sys.exit(1)
 
     option = sys.argv[1]
     filename = sys.argv[2]
-
-    build_words_dict(filename)
 
     if option == '--count':
         print_words(filename)
