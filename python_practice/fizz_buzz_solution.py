@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python
 
 """
 __author__ = 'Shannon Buckley', 5/28/16
