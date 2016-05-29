@@ -19,7 +19,6 @@ import commands
 # Write functions and modify main() to call them
 
 
-
 def main():
     # This basic command line argument parsing code is provided.
     # Add code to call your functions below.
@@ -52,4 +51,4 @@ def main():
     # Call your functions
   
 if __name__ == "__main__":
-  main()
+    main()
