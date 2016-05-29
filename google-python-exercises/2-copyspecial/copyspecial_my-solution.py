@@ -12,16 +12,7 @@ import os
 import shutil
 import commands
 
-"""
-The Copy Special exercise goes with the file-system and external commands material in the Python Utilities section.
-This exercise is in the "copyspecial" directory within google-python-exercises (download google-python-exercises.zip
-if you have not already, see Set Up for details). Add your code in copyspecial.py.
-
-The copyspecial.py program takes one or more directories as its arguments.
-
-We'll say that a "special" file is one where the name contains the pattern __w__ somewhere, where the w is one or more
-word chars. The provided main() includes code to parse the command line arguments, but the rest is up to you.
-Write functions to implement the features below and modify main() to call your functions.
+"""Copy Special exercise
 """
 
 # +++your code here+++
