@@ -28,11 +28,20 @@ Suggested functions for your solution(details below):
 get_special_paths(dir) -- returns a list of the absolute paths of the special files in the given directory
 copy_to(paths, dir) given a list of paths, copies those files into the given directory
 zip_to(paths, zippath) given a list of paths, zip those files up into the given zipfile
-
 """
 
-# +++your code here+++
-# Write functions and modify main() to call them
+def get_special_paths(dir):
+    """returns a list of the absolute paths of the special files in the given directory"""
+    pass
+
+
+def copy_to(paths, dir):
+    """given a list of paths, copies those files into the given directory"""
+    pass
+
+def zip_to(paths, zip_path):
+    """given a list of paths, zip those files up into the given zipfile"""
+    pass
 
 
 def main():
