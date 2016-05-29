@@ -27,25 +27,25 @@ def main():
     # which is the script itself.
     args = sys.argv[1:]
     if not args:
-      print "usage: [--todir dir][--tozip zipfile] dir [dir ...]";
-      sys.exit(1)
+        print "usage: [--todir dir][--tozip zipfile] dir [dir ...]";
+        sys.exit(1)
 
     # todir and tozip are either set from command line
     # or left as the empty string.
     # The args array is left just containing the dirs.
     todir = ''
     if args[0] == '--todir':
-      todir = args[1]
-      del args[0:2]
+        todir = args[1]
+        del args[0:2]
 
     tozip = ''
     if args[0] == '--tozip':
-      tozip = args[1]
-      del args[0:2]
+        tozip = args[1]
+        del args[0:2]
 
     if len(args) == 0:
-      print "error: must specify one or more dirs"
-      sys.exit(1)
+        print "error: must specify one or more dirs"
+        sys.exit(1)
 
     # +++your code here+++
     # Call your functions
