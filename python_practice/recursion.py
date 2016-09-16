@@ -11,8 +11,13 @@ Your function can have loops; it just needs to also be recursive.
 
 def permute_string(input_string):
 
-    pass
+    string_parts = set()
+
+    for word in input_string.split():
+        print word
+
+    return string_parts
 
 set_of_strings = permute_string('this is a test string')
 
-print sorted(set_of_strings)
+print sorted(set_of_strings, key=lambda x: len(x))

@@ -25,16 +25,32 @@
 # and donuts(23) returns 'Number of donuts: many'
 def donuts(count):
 
-    pass
+    if count >= 10:
+        result = 'many'
+    else:
+        result = count
+
+    return 'Number of donuts: %s' % result
 
 # B. both_ends
 # Given a string s, return a string made of the first 2
 # and the last 2 chars of the original string,
 # so 'spring' yields 'spng'. However, if the string length
 # is less than 2, return instead the empty string.
+
+
 def both_ends(s):
 
-    pass
+    if len(s) < 2:
+        return ''
+
+    first_two = s[0:2]
+
+    last_two = s[-2:]
+
+    # print last_two
+
+    return first_two + last_two
 
 
 # C. fix_start
