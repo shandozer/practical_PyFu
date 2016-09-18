@@ -42,13 +42,13 @@ class BigPrint:
                 }
 
 printer = BigPrint('yellow', 'on_red')
-printer.print_big('Welcome to the Farter')
+printer.print_big('Welcome to Big Printer')
 
 printer.font = 'Times'
-printer.print_big('fart')
+printer.print_big('stuff')
 
 printer.set_font('starwars')
-printer.print_big('fart')
+printer.print_big('stuff')
 
 p2 = BigPrint('red', 'on_blue', font='Times')
-p2.print_big('PooooooP')
+p2.print_big('THINGS')
