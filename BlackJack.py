@@ -16,6 +16,7 @@ class Game:
         self.player_hand = Hand()
         self.dealer_hand = Hand()
         self.deck = Deck()
+        self.deck.shuffle_cards()
         self.dealer_score = 0
         self.player_score = 0
         self.outcome = ""
@@ -27,19 +28,20 @@ class Game:
             print self.outcome
             self.player_score -= 1
             self.game_on = False
-        else:
-            self.deck = Deck()
-            self.deck.shuffle_cards()
+        elif not self.game_on:
+
             self.player_hand.add_card(self.deck.deal_card())
             self.dealer_hand.add_card(self.deck.deal_card())
             self.player_hand.add_card(self.deck.deal_card())
             self.dealer_hand.add_card(self.deck.deal_card())
 
+            self.game_on = True
+
             print 'Dealer showing: {}'.format(self.dealer_hand.cards[0])
-            # print 'Player has: {}'.format(self.player_hand.cards)
+
             print 'Player has: {}, {} \n\tValue is {}'.format(self.player_hand.cards[0], self.player_hand.cards[1],
                                                               self.player_hand.get_value())
-            self.game_on = True
+
             self.outcome = self.player_choice()
 
     def hit(self):
@@ -49,6 +51,13 @@ class Game:
             if self.player_hand.get_value() <= 21:
 
                 self.player_hand.add_card(self.deck.deal_card())
+
+                self.outcome = 'Player has: {}, {} \n\tValue is {}'.format(self.player_hand.cards[0],
+                                                                           self.player_hand.cards[1],
+                                                                           self.player_hand.get_value())
+                print(self.outcome)
+
+                self.player_choice()
 
             print self.player_hand.cards[0:len(self.player_hand.cards)-1]
 
@@ -61,7 +70,6 @@ class Game:
                 self.game_on = False
 
             print self.player_hand.get_value()
-            self.player_choice()
 
     def stand(self):
 
@@ -175,7 +183,7 @@ class Hand:
 
     def __str__(self):
 
-        return self.cards[0]
+        print self.cards
 
     def add_card(self, card):
 
@@ -224,7 +232,13 @@ def main():
 
         if 'hit' in player_choice:
             if g.game_on:
-                pass
+                g.hit()
+        elif 'deal':
+            g.deal_cards()
+        elif 'stand':
+            g.stand()
+        else:
+            break
 
 
 if __name__ == '__main__':
