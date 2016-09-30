@@ -7,9 +7,9 @@ import random
 import sys
 
 
-class Game:
+class Game(object):
 
-    CHOICES = ['hit', 'stand', 'deal (forfeits current hand)']
+    CHOICES = ['hit', 'stand', 'deal']
 
     def __init__(self):
         self.game_on = False
@@ -23,28 +23,30 @@ class Game:
 
     def deal_cards(self):
 
-        if self.game_on:
-            self.outcome = 'Player forfeited game and started a new one!'
-            print self.outcome
-            self.player_score -= 1
-            self.game_on = False
-        elif not self.game_on:
+        self.__init__()  # dump any cards they have, re-deal
+        self.player_hand.add_card(self.deck.deal_card())
+        self.dealer_hand.add_card(self.deck.deal_card())
+        self.player_hand.add_card(self.deck.deal_card())
+        self.dealer_hand.add_card(self.deck.deal_card())
 
-            self.player_hand.add_card(self.deck.deal_card())
-            self.dealer_hand.add_card(self.deck.deal_card())
-            self.player_hand.add_card(self.deck.deal_card())
-            self.dealer_hand.add_card(self.deck.deal_card())
+        self.game_on = True
 
-            self.game_on = True
+        print 'Dealer showing: {}'.format(self.dealer_hand.cards[0])
 
-            print 'Dealer showing: {}'.format(self.dealer_hand.cards[0])
+        print 'Player has: {} \n\tValue is {}'.format(self.player_hand,
+                                                      self.player_hand.get_value())
 
-            print 'Player has: {}, {} \n\tValue is {}'.format(self.player_hand.cards[0], self.player_hand.cards[1],
-                                                              self.player_hand.get_value())
+        if self.player_hand.check_blackjack():
+            self.outcome = "\nPlayer has BlackJack! PLAYER WINS! "
+        elif self.dealer_hand.check_blackjack():
+            self.outcome = "\nDealer has BlackJack! DEALER WINS :("
 
-            self.outcome = self.player_choice()
+        self.outcome = self.player_choice()
 
     def hit(self):
+
+        if not self.game_on:
+            self.player_choice()
 
         if self.game_on:
 
@@ -52,9 +54,8 @@ class Game:
 
                 self.player_hand.add_card(self.deck.deal_card())
 
-                self.outcome = 'Player has: {}, {} \n\tValue is {}'.format(self.player_hand.cards[0],
-                                                                           self.player_hand.cards[1],
-                                                                           self.player_hand.get_value())
+                self.outcome = 'Player has: {}\n\tValue is {}'.format(self.player_hand,
+                                                                      self.player_hand.get_value())
                 print(self.outcome)
 
                 self.player_choice()
@@ -75,27 +76,44 @@ class Game:
 
         self.game_on = False
 
-        while self.dealer_hand.get_value() < 17:
-            self.dealer_hand.add_card(self.deck.deal_card())
+        print "\nPlayer chose to stand! Dealer has: {}".format(self.dealer_hand)
 
-        print 'Dealer has: {}'.format(self.dealer_hand.get_value())
+        while self.dealer_hand.get_value() < 17:
+
+            next_card = self.deck.deal_card()
+
+            print "\nDealer Must Take a Card: {}!".format(next_card)
+
+            self.dealer_hand.add_card(next_card)
+
+            print "\nDealer's Hand is now: {}".format(self.dealer_hand)
+
+            print '\nDealer has: {}'.format(self.dealer_hand.get_value())
 
         if self.dealer_hand.get_value() > 21:
+
             self.outcome = "\n{}\nDealer Busted! PLAYER WINS!".format(72*'=')
             self.player_score += 1
+
             print self.outcome
             print "Play Again?"
+
+        elif self.player_hand.get_value() > 21:
+
+            self.outcome = "\n{}\nPlayer has Busted! DEALER WINS :( ".format(72*'=')
+            self.dealer_score += 1
 
         else:
             if self.dealer_hand.get_value() >= self.player_hand.get_value() or self.player_hand.get_value() > 21:
                 self.outcome = "Dealer Wins! :("
                 self.player_score -= 1
+
             else:
                 self.outcome = "Player wins!"
                 self.player_score += 1
 
-            print self.outcome
-            self.player_choice()
+        print self.outcome
+        self.player_choice()
 
     def player_choice(self):
 
@@ -103,13 +121,15 @@ class Game:
 
             choice = raw_input('What do you do? Choices = {}'.format(Game.CHOICES))
 
-            while choice in Game.CHOICES:
+            while True:
                 if choice == 'hit':
                     self.hit()
                 elif choice == 'stand':
                     self.stand()
                 elif choice == 'deal':
                     self.deal_cards()
+                else:
+                    self.player_choice()
 
             print '\nPlayer has chosen to {}'.format(choice)
             return choice
@@ -119,7 +139,7 @@ class Game:
             sys.exit()
 
 
-class Card:
+class Card(object):
 
     SUITS = ('D', 'C', 'H', 'S')
 
@@ -145,7 +165,7 @@ class Card:
         return self.rank + self.suit
 
 
-class Deck:
+class Deck(object):
 
     SUITS = ('D', 'C', 'H', 'S')
 
@@ -174,7 +194,7 @@ class Deck:
         return card
 
 
-class Hand:
+class Hand(object):
 
     def __init__(self):
 
@@ -183,7 +203,11 @@ class Hand:
 
     def __str__(self):
 
-        print self.cards
+        hand = ''
+        for card in self.cards:
+            hand += ' ' + card.__str__()
+
+        return hand
 
     def add_card(self, card):
 
@@ -224,21 +248,7 @@ def main():
 
     g.deal_cards()
 
-    while not g.game_on:
-
-        print "what would you like to do?\nChoices:\t{}".format(" ".join(Game.CHOICES))
-
-        player_choice = raw_input("\n > ")
-
-        if 'hit' in player_choice:
-            if g.game_on:
-                g.hit()
-        elif 'deal':
-            g.deal_cards()
-        elif 'stand':
-            g.stand()
-        else:
-            break
+    #g.player_choice()
 
 
 if __name__ == '__main__':
