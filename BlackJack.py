@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
-__author__ = , 9/11/16
+__author__ = Shannon Buckley, 9/11/16
+__version__ = 1.0.0
 """
 
 import random
@@ -247,8 +248,6 @@ def main():
     g = Game()
 
     g.deal_cards()
-
-    #g.player_choice()
 
 
 if __name__ == '__main__':
