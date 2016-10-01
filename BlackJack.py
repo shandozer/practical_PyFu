@@ -6,6 +6,10 @@ __version__ = 1.0.0
 
 import random
 import sys
+import pygame
+import os
+from os import path
+from pygame.locals import *
 
 
 class Game(object):
@@ -21,6 +25,16 @@ class Game(object):
         self.dealer_score = 0
         self.player_score = 0
         self.outcome = ""
+
+        self.SCREEN_WIDTH = 800
+        self.SCREEN_HEIGHT = 600
+        self.size = [self.SCREEN_WIDTH, self.SCREEN_HEIGHT]
+
+        # self.all_sprites_list = pygame.sprite.Group()
+        #
+        # for card in self.player_hand.cards:
+        #
+        #     self.all_sprites_list.add(card)
 
     def deal_cards(self):
 
@@ -139,8 +153,34 @@ class Game(object):
             print '\nExiting...'
             sys.exit()
 
+    # def display_frame(self, screen):
+    #     screen.fill((0, 255, 0))
+    #
+    #     if not self.game_on:
+    #
+    #         font = pygame.font.SysFont("serif", 25)
+    #         text = font.render("BlackJack", True, (0, 0, 0))  # text[3] == BLACK
+    #         center_x = (self.SCREEN_WIDTH // 2) - (text.get_width() // 2)
+    #         center_y = (self.SCREEN_HEIGHT // 2) - (text.get_height() // 2)
+    #         screen.blit(text, [center_x, center_y])
+    #
+    #     if self.game_on:
+    #         self.all_sprites_list.draw(screen)
+    #
+    #     pygame.display.flip()
 
-class Card(object):
+    def write(self, info, color=(0, 0, 0), fontsize=24):
+        game_font = pygame.font.SysFont("None", fontsize)
+        text_to_write = game_font.render(info, True, color)
+        text_to_write = text_to_write.convert_alpha()
+        return text_to_write
+
+    def draw(self, screen, sprite, x, y):
+        screen.blit(sprite, (round(x, 0) - sprite.get_width()/2,
+                             round(y, 0) - sprite.get_height()/2))
+
+
+class Card(pygame.sprite.Sprite):
 
     SUITS = ('D', 'C', 'H', 'S')
 
@@ -153,6 +193,7 @@ class Card(object):
         }
 
     def __init__(self, rank, suit):
+        pygame.sprite.Sprite.__init__(self)
         self.rank = rank
         self.suit = suit
 
@@ -164,6 +205,9 @@ class Card(object):
 
     def __str__(self):
         return self.rank + self.suit
+
+    def draw(self):
+        pass
 
 
 class Deck(object):
@@ -243,12 +287,70 @@ class Hand(object):
                 print '\nBlackJack!'
 
 
+class SpriteSheet(object):
+    """Class used to slice images out of a sprite sheet."""
+
+    def __init__(self, filename):
+
+        self.filename = filename
+
+        try:
+            self.sprite_sheet = pygame.image.load(path.join(path.dirname(sys.argv[0]), self.filename))
+            self.sprite_sheet = self.sprite_sheet.convert_alpha()
+        except pygame.error, message:
+            print 'Unable to load spritesheet image:', self.filename
+            raise SystemExit, message
+
+    # get specific image from specific rectangular region (x,y)
+    def get_image(self, x, y, width, height, colorkey=None):
+
+        rectangle = (x, y, width, height)
+
+        rect = pygame.Rect(rectangle)
+
+        # make new blank img
+        image = pygame.Surface(rect.size).convert_alpha(rect)
+
+        image.blit(self.sprite_sheet, (0, 0), rect)
+
+        if colorkey is not None:
+            if colorkey is -1:
+                colorkey = image.get_at((0, 0))
+            else:
+                colorkey = (0, 0, 0)  # black
+            image.set_colorkey(colorkey, pygame.RLEACCEL)
+
+        return image
+
+
 def main():
 
-    g = Game()
+    pygame.init()
 
-    g.deal_cards()
+    SIZE = [800, 600]
+    CARD_SIZE = (73, 98)
+    CARD_CENTER = (36.5, 49)
+    bg_color = (0, 255, 0)
 
+    screen = pygame.display.set_mode(SIZE)
+
+    # g = Game()
+    # g.deal_cards()
+
+    pygame.display.set_caption("BlackJack with sprite sheet...")
+
+    # fill BG
+    screen.fill(bg_color)
+    pygame.display.flip()
+
+    running = True
+
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+
+        pygame.display.flip()
 
 if __name__ == '__main__':
     main()
