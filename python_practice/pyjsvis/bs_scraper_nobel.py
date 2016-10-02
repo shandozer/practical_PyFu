@@ -3,27 +3,26 @@
 __author__ = , 9/13/16
 """
 
-import os
 import sys
-from os import path
 from bs4 import BeautifulSoup
 import urllib2
 import codecs
 
-BASE_URL = 'http://en.wikipedia.org/'
-ANOTHER_URL = 'http://www.leafly.com/finder'
+VERSION = '0.1.0'
 
-HEADERS = {'Users-Agent': 'Mozilla/5.0'}
+BASE_URL = 'http://en.wikipedia.org/'
 
 
 def get_soup(base_url=BASE_URL, extension_url=''):
+    """Grab all elements from given URL page"""
 
     info = urllib2.urlopen(base_url + extension_url)
 
-    return BeautifulSoup(info)
+    return BeautifulSoup(info, "lxml")
 
 
 def extract_tables_from_soup(soup):
+    """Single-out a certain table element given page element 'soup' """
 
     # tables = soup.select('table.sortable.wikitable')
 
@@ -33,6 +32,7 @@ def extract_tables_from_soup(soup):
 
 
 def get_column_titles(table):
+    """Takes table element and looks for headers and links, returning list of dicts for each column header"""
 
     cols = []
 
@@ -47,6 +47,7 @@ def get_column_titles(table):
 
 
 def get_winners(table):
+    """takes table soup and returns list of dicts with winner info"""
 
     cols = get_column_titles(table)
 
@@ -79,7 +80,7 @@ def get_winner_nationality(winner_info_dict):
 
     soup = get_soup(BASE_URL, winner_info_dict['link'])
 
-    person_data = {'name': winner_info_dict['name']}
+    nationality = {'name': winner_info_dict['name']}
 
     attr_rows = soup.select('table.infobox tr')
 
@@ -87,11 +88,11 @@ def get_winner_nationality(winner_info_dict):
         try:
             attribute = tr.select_one('th').text
             if attribute.lower() == 'nationality':
-                person_data[attribute] = tr.select_one('td').text
+                nationality[attribute] = tr.select_one('td').text
         except AttributeError:
             pass
 
-    return person_data
+    return nationality
 
 
 def main():
@@ -100,19 +101,23 @@ def main():
 
     table = extract_tables_from_soup(soup)
 
-    print table
+    winners_list = get_winners(table)
 
-    winners_dict = get_winners(table)
+    try:
 
-    print winners_dict
+        for winner in sorted(winners_list):
 
-    for winner in winners_dict:
+            category = codecs.encode(winner['category'], 'ascii', 'ignore')
 
-        nationality = get_winner_nationality(winner)
+            person = codecs.encode(winner['name'], 'ascii', 'ignore')
 
-        person = codecs.encode(winner['name'], 'ascii', 'ignore')
+            year = codecs.encode(str(winner['year']), 'ascii', 'ignore')
 
-        print '\n{} is from {}\n'.format(person, nationality)
+            print '\n{} || {} || {}\n'.format(person, category, year)
+
+    except KeyboardInterrupt:
+        print 'Exiting...'
+        sys.exit()
 
 if __name__ == '__main__':
 
