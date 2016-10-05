@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 """
 __author__ = Shannon Buckley, 9/11/16
-__version__ = 1.0.0
 """
 
 import random
@@ -10,6 +9,25 @@ import pygame
 import os
 from os import path
 from pygame.locals import *
+
+VERSION = '1.0.0'
+
+
+def load_png(name):
+
+    fullname = path.join(path.dirname(sys.argv[0]), name)
+
+    try:
+        image = pygame.image.load(fullname)
+        if image.get_alpha is None:
+            image = image.convert()
+        else:
+            image = image.convert_alpha()
+    except pygame.error, message:
+        print 'Unable to load image', fullname
+        raise SystemExit, message
+
+    return image, image.get_rect()
 
 
 class Game(object):
@@ -60,38 +78,31 @@ class Game(object):
 
     def hit(self):
 
-        if not self.game_on:
-            self.player_choice()
-
         if self.game_on:
 
             if self.player_hand.get_value() <= 21:
-
                 self.player_hand.add_card(self.deck.deal_card())
 
-                self.outcome = 'Player has: {}\n\tValue is {}'.format(self.player_hand,
-                                                                      self.player_hand.get_value())
-                print(self.outcome)
+            self.outcome = 'Player has: {}\n\tValue is {}'.format(self.player_hand,
+                                                                  self.player_hand.get_value())
+            print(self.outcome)
 
-                self.player_choice()
+            if self.player_hand.busted():
 
-            print self.player_hand.cards[0:len(self.player_hand.cards)-1]
-
-            if self.player_hand.get_value() > 21:
-
-                self.outcome = "Player Busted!"
-                print(self.outcome)
-
-                self.player_score -= 1
                 self.game_on = False
+                self.outcome = "You Busted!"
+                print(self.outcome)
+                self.player_score -= 1
 
-            print self.player_hand.get_value()
+            self.player_choice()
 
     def stand(self):
 
-        self.game_on = False
+        self.outcome = "\nPlayer chose to stand! Dealer has: {} ({})".format(self.dealer_hand,
+                                                                             self.dealer_hand.get_value())
 
-        print "\nPlayer chose to stand! Dealer has: {}".format(self.dealer_hand)
+        print self.outcome
+        self.game_on = False
 
         while self.dealer_hand.get_value() < 17:
 
@@ -105,21 +116,13 @@ class Game(object):
 
             print '\nDealer has: {}'.format(self.dealer_hand.get_value())
 
-        if self.dealer_hand.get_value() > 21:
+        if self.dealer_hand.busted():
 
             self.outcome = "\n{}\nDealer Busted! PLAYER WINS!".format(72*'=')
             self.player_score += 1
 
-            print self.outcome
-            print "Play Again?"
-
-        elif self.player_hand.get_value() > 21:
-
-            self.outcome = "\n{}\nPlayer has Busted! DEALER WINS :( ".format(72*'=')
-            self.dealer_score += 1
-
         else:
-            if self.dealer_hand.get_value() >= self.player_hand.get_value() or self.player_hand.get_value() > 21:
+            if self.dealer_hand.get_value() >= self.player_hand.get_value() or self.player_hand.busted:
                 self.outcome = "Dealer Wins! :("
                 self.player_score -= 1
 
@@ -133,8 +136,12 @@ class Game(object):
     def player_choice(self):
 
         try:
+            if not self.game_on:
+                choices = Game.CHOICES[-1]
+            else:
+                choices = Game.CHOICES
 
-            choice = raw_input('What do you do? Choices = {}'.format(Game.CHOICES))
+            choice = raw_input('What do you do? Choices = {}'.format(choices))
 
             while True:
                 if choice == 'hit':
@@ -173,6 +180,7 @@ class Game(object):
         game_font = pygame.font.SysFont("None", fontsize)
         text_to_write = game_font.render(info, True, color)
         text_to_write = text_to_write.convert_alpha()
+
         return text_to_write
 
     def draw(self, screen, sprite, x, y):
@@ -286,6 +294,13 @@ class Hand(object):
 
                 print '\nBlackJack!'
 
+    def busted(self):
+
+        if self.get_value() > 21:
+            return True
+        else:
+            return False
+
 
 class SpriteSheet(object):
     """Class used to slice images out of a sprite sheet."""
@@ -327,16 +342,17 @@ def main():
 
     pygame.init()
 
+    g = Game()
+
+    g.deal_cards()
+
     SIZE = [800, 600]
     CARD_SIZE = (73, 98)
     CARD_CENTER = (36.5, 49)
+
     bg_color = (0, 255, 0)
 
     screen = pygame.display.set_mode(SIZE)
-
-    # g = Game()
-    # g.deal_cards()
-
     pygame.display.set_caption("BlackJack with sprite sheet...")
 
     # fill BG
