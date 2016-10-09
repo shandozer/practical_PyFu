@@ -1,0 +1,136 @@
+body {
+    background: green;
+
+}
+
+#felt {
+    height: 740px;
+}
+
+.dealercards {
+
+    margin-top: 25px;
+    height: 98px;
+
+}
+
+.dealerhand.show {
+
+}
+
+.dealerhand.hidden {
+    background: url('assets/card_back.png') no-repeat;
+}
+
+.playercards {
+    background: url('assets/cards.jfitz.png') no-repeat;
+    position: relative;
+    top: 500.5px;
+    height: 98px;
+    padding-left: 20px;
+
+}
+
+.playercards div {
+    margin-left: 25px;
+    width: 950px;
+
+}
+
+.suits {
+
+}
+
+.cards {
+
+    background: url('assets/cards.jfitz.png') no-repeat;
+    height: 392px;
+    width: 950px;
+    position: relative;
+
+}
+
+.cards.clubs {
+    background-position: 0px 0px;
+    height: 98px;
+}
+
+.cards.spades {
+    background-position: 0 -98px;
+    height: 98px;
+}
+
+.cards.hearts {
+    background-position: 0px -196px;
+    height: 98px;
+}
+
+.cards.diamonds {
+    background-position: 0px -294px;
+    height: 98px;
+}
+
+.cards.aces {
+    background-position: 0px 0px;
+    width: 73px;
+}
+
+.cards.twos {
+    background-position: -73px 0;
+    width: 73px;
+}
+
+.cards.threes {
+    background-position: -146px 0px;
+    width: 73px;
+}
+
+.cards.fours {
+    background-position: -220px 0px;
+    width: 73px;
+}
+
+.cards.fives {
+    background-position: -292px 0px;
+    width: 73px;
+}
+
+.cards.sixes {
+    background-position: -365px 0px;
+    width: 73px;
+}
+
+.cards.sevens {
+    background-position: -438px 0px;
+    width: 73px;
+}
+
+.cards.eights {
+    background-position: -511px 0px;
+    width: 73px;
+}
+
+.cards.nines {
+    background-position: -584px 0px;
+    width: 73px;
+}
+
+.cards.tens {
+    background-position: -657px 0px;
+    width: 73px;
+}
+
+.cards.jacks {
+    background-position: -730px 0px;
+    width: 73px;
+}
+
+.cards.queens {
+    background-position: -803px 0px;
+    width: 73px;
+}
+
+.cards.kings {
+    background-position: -876px 0px;
+    width: 73px;
+}
