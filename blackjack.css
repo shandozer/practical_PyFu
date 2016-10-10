@@ -7,130 +7,235 @@ body {
     height: 740px;
 }
 
+ul {
+    list-style-type: none;
+    position: relative;
+}
+
+li {
+
+   float: left;
+   margin-left: 15px;
+   min-width: 73px;
+   height: 98px;
+}
+
 .dealercards {
 
     margin-top: 25px;
     height: 98px;
+    z-index: -999
 
 }
 
-.dealerhand.show {
-
-}
-
-.dealerhand.hidden {
+.hidden {
     background: url('assets/card_back.png') no-repeat;
+    height: 98px;
+    z-index: 999
 }
 
 .playercards {
-    background: url('assets/cards.jfitz.png') no-repeat;
-    position: relative;
-    top: 500.5px;
+
+    background-repeat: no-repeat;
+    top: 300.5px;
     height: 98px;
-    padding-left: 20px;
-
-}
-
-.playercards div {
-    margin-left: 25px;
-    width: 950px;
-
-}
-
-.suits {
-
 }
 
 .cards {
 
     background: url('assets/cards.jfitz.png') no-repeat;
     height: 392px;
+    min-height: 98px;
     width: 950px;
     position: relative;
+    min-width: 73.5px;
 
 }
 
-.cards.clubs {
-    background-position: 0px 0px;
-    height: 98px;
-}
+#CA {
+    background: url('assets/cards.jfitz.png') no-repeat -0px 0px;
 
-.cards.spades {
-    background-position: 0 -98px;
-    height: 98px;
 }
-
-.cards.hearts {
-    background-position: 0px -196px;
-    height: 98px;
+#C2 {
+    background: url('assets/cards.jfitz.png') no-repeat -73px 0px;
 }
+#C3 {
+    background: url('assets/cards.jfitz.png') no-repeat -146px 0px;
 
-.cards.diamonds {
-    background-position: 0px -294px;
-    height: 98px;
 }
+#C4 {
+    background: url('assets/cards.jfitz.png') no-repeat -220px 0px;
 
-.cards.aces {
-    background-position: 0px 0px;
-    width: 73px;
 }
-
-.cards.twos {
-    background-position: -73px 0;
-    width: 73px;
-}
-
-.cards.threes {
-    background-position: -146px 0px;
-    width: 73px;
-}
-
-.cards.fours {
-    background-position: -220px 0px;
-    width: 73px;
-}
-
-.cards.fives {
+#C5 {
+    background: url('assets/cards.jfitz.png');
     background-position: -292px 0px;
-    width: 73px;
+
+}
+#C6 {
+    background: url('assets/cards.jfitz.png') no-repeat -365px 0px;
+
+}
+#C7 {
+    background: url('assets/cards.jfitz.png') no-repeat -438px 0px;
+
+}
+#C8 {
+    background: url('assets/cards.jfitz.png') no-repeat -511px 0px;
+
+}
+#C9 {
+    background: url('assets/cards.jfitz.png') no-repeat -584px 0px;
+
+}
+#C10 {
+    background: url('assets/cards.jfitz.png') no-repeat -657px 0px;
+
+}
+#CJ {
+    background: url('assets/cards.jfitz.png') no-repeat -730px 0px;
+}
+#CQ {
+    background: url('assets/cards.jfitz.png') no-repeat -803px 0px;
+}
+#CK {
+    background: url('assets/cards.jfitz.png') no-repeat -876px 0px;
+
+}
+#SA {
+   background: url('assets/cards.jfitz.png') no-repeat -0px -98px;
+
+}
+#S2 {
+   background: url('assets/cards.jfitz.png') no-repeat -73px -98px;
+}
+#S3 {
+   background: url('assets/cards.jfitz.png') no-repeat -146px -98px;
+
+}
+#S4 {
+   background: url('assets/cards.jfitz.png') no-repeat -220px -98px;
+
+}
+#S5 {
+   background: url('assets/cards.jfitz.png') no-repeat -292px -98px;
+
+}
+#S6 {
+   background: url('assets/cards.jfitz.png') no-repeat -365px -98px;
+
+}
+#S7 {
+   background: url('assets/cards.jfitz.png') no-repeat -438px -98px;
+
+}
+#S8 {
+   background: url('assets/cards.jfitz.png') no-repeat -511px -98px;
+
+}
+#S9 {
+   background: url('assets/cards.jfitz.png') no-repeat -584px -98px;
+
+}
+#S10 {
+   background: url('assets/cards.jfitz.png') no-repeat -657px -98px;
+
+}
+#SJ {
+   background: url('assets/cards.jfitz.png') no-repeat -730px -98px;
+}
+#SQ {
+    background: url('assets/cards.jfitz.png') no-repeat -803px -98px;
 }
 
-.cards.sixes {
-    background-position: -365px 0px;
-    width: 73px;
+#SK {
+    background: url('assets/cards.jfitz.png') no-repeat -876px -98px;
+
 }
 
-.cards.sevens {
-    background-position: -438px 0px;
-    width: 73px;
+#HA {
+    background: url('assets/cards.jfitz.png') no-repeat 0px -196px;
+}
+#H2 {
+    background: url('assets/cards.jfitz.png') no-repeat -73px -196px;
+}
+#H3 {
+   background: url('assets/cards.jfitz.png') no-repeat -146px -196px;
+
+}
+#H4 {
+   background: url('assets/cards.jfitz.png') no-repeat -220px -196px;
+
+}
+#H5 {
+   background: url('assets/cards.jfitz.png') no-repeat -292px -196px;
+
+}
+#H6 {
+   background: url('assets/cards.jfitz.png') no-repeat -365px -196px;
+
+}
+#H7 {
+   background: url('assets/cards.jfitz.png') no-repeat -438px -196px;
+
+}
+#H8 {
+    background: url('assets/cards.jfitz.png') no-repeat -511px -196px;
+}
+#H9 {
+    background: url('assets/cards.jfitz.png') no-repeat -584px -196px;
+}
+#H10 {
+    background: url('assets/cards.jfitz.png') no-repeat -657px -196px;
+}
+#HJ {
+    background: url('assets/cards.jfitz.png') no-repeat -730px -196px;
+}
+#HQ {
+    background: url('assets/cards.jfitz.png') no-repeat -803px -196px;
+}
+#HK {
+    background: url('assets/cards.jfitz.png') no-repeat -876px -196px;
 }
 
-.cards.eights {
-    background-position: -511px 0px;
-    width: 73px;
+#DA {
+    background: url('assets/cards.jfitz.png') no-repeat 0px -294px;
 }
-
-.cards.nines {
-    background-position: -584px 0px;
-    width: 73px;
+#D2 {
+    background: url('assets/cards.jfitz.png') no-repeat -73px -294px;
 }
+#D3 {
+   background: url('assets/cards.jfitz.png') no-repeat -146px -294px;
 
-.cards.tens {
-    background-position: -657px 0px;
-    width: 73px;
 }
+#D4 {
+   background: url('assets/cards.jfitz.png') no-repeat -220px -294px;
 
-.cards.jacks {
-    background-position: -730px 0px;
-    width: 73px;
 }
+#D5 {
+   background: url('assets/cards.jfitz.png') no-repeat -292px -294px;
 
-.cards.queens {
-    background-position: -803px 0px;
-    width: 73px;
 }
+#D6 {
+   background: url('assets/cards.jfitz.png') no-repeat -365px -294px;
 
-.cards.kings {
-    background-position: -876px 0px;
-    width: 73px;
+}
+#D7 {
+   background: url('assets/cards.jfitz.png') no-repeat -438px -294px;
+
+}
+#D8 {
+    background: url('assets/cards.jfitz.png') no-repeat -511px -294px;
+}
+#D10 {
+    background: url('assets/cards.jfitz.png') no-repeat -657px -294px;
+}
+#DJ {
+    background: url('assets/cards.jfitz.png') no-repeat -730px -294px;
+}
+#DQ {
+    background: url('assets/cards.jfitz.png') no-repeat -803px -294px;
+}
+#DK {
+    background: url('assets/cards.jfitz.png') no-repeat -876px -294px;
 }
