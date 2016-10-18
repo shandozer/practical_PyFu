@@ -1,0 +1,213 @@
+body {
+    background: green;
+}
+
+#felt {
+    height: 440px;
+}
+
+ul {
+    list-style-type: none;
+    position: relative;
+}
+
+li {
+   float: left;
+   margin-left: 15px;
+   min-width: 73px;
+   height: 98px;
+}
+
+.dealercards {
+    margin-top: 25px;
+    height: 98px;
+    z-index: -999
+}
+
+.playercards {
+    background-repeat: no-repeat;
+    top: 200.5px;
+    height: 98px;
+    margin-bottom: 25px;
+}
+
+#CA {
+    background: url('cards.jfitz.png') no-repeat -0px 0px;
+}
+#C2 {
+    background: url('cards.jfitz.png') no-repeat -73px 0px;
+}
+#C3 {
+    background: url('cards.jfitz.png') no-repeat -146px 0px;
+}
+#C4 {
+    background: url('cards.jfitz.png') no-repeat -220px 0px;
+}
+#C5 {
+    background: url('cards.jfitz.png');
+    background-position: -292px 0px;
+}
+#C6 {
+    background: url('cards.jfitz.png') no-repeat -365px 0px;
+}
+#C7 {
+    background: url('cards.jfitz.png') no-repeat -438px 0px;
+}
+#C8 {
+    background: url('cards.jfitz.png') no-repeat -511px 0px;
+}
+#C9 {
+    background: url('cards.jfitz.png') no-repeat -584px 0px;
+}
+#C10 {
+    background: url('cards.jfitz.png') no-repeat -657px 0px;
+}
+#CJ {
+    background: url('cards.jfitz.png') no-repeat -730px 0px;
+}
+#CQ {
+    background: url('cards.jfitz.png') no-repeat -803px 0px;
+}
+#CK {
+    background: url('cards.jfitz.png') no-repeat -876px 0px;
+}
+
+#SA {
+   background: url('cards.jfitz.png') no-repeat -0px -98px;
+}
+#S2 {
+   background: url('cards.jfitz.png') no-repeat -73px -98px;
+}
+#S3 {
+   background: url('cards.jfitz.png') no-repeat -146px -98px;
+}
+#S4 {
+   background: url('cards.jfitz.png') no-repeat -220px -98px;
+}
+#S5 {
+   background: url('cards.jfitz.png') no-repeat -292px -98px;
+}
+#S6 {
+   background: url('cards.jfitz.png') no-repeat -365px -98px;
+}
+#S7 {
+   background: url('cards.jfitz.png') no-repeat -438px -98px;
+}
+#S8 {
+   background: url('cards.jfitz.png') no-repeat -511px -98px;
+}
+#S9 {
+   background: url('cards.jfitz.png') no-repeat -584px -98px;
+}
+#S10 {
+   background: url('cards.jfitz.png') no-repeat -657px -98px;
+}
+#SJ {
+   background: url('cards.jfitz.png') no-repeat -730px -98px;
+}
+#SQ {
+    background: url('cards.jfitz.png') no-repeat -803px -98px;
+}
+#SK {
+    background: url('cards.jfitz.png') no-repeat -876px -98px;
+}
+
+#HA {
+    background: url('cards.jfitz.png') no-repeat 0px -196px;
+}
+#H2 {
+    background: url('cards.jfitz.png') no-repeat -73px -196px;
+}
+#H3 {
+   background: url('cards.jfitz.png') no-repeat -146px -196px;
+}
+#H4 {
+   background: url('cards.jfitz.png') no-repeat -220px -196px;
+}
+#H5 {
+   background: url('cards.jfitz.png') no-repeat -292px -196px;
+}
+#H6 {
+   background: url('cards.jfitz.png') no-repeat -365px -196px;
+}
+#H7 {
+   background: url('cards.jfitz.png') no-repeat -438px -196px;
+}
+#H8 {
+    background: url('cards.jfitz.png') no-repeat -511px -196px;
+}
+#H9 {
+    background: url('cards.jfitz.png') no-repeat -584px -196px;
+}
+#H10 {
+    background: url('cards.jfitz.png') no-repeat -657px -196px;
+}
+#HJ {
+    background: url('cards.jfitz.png') no-repeat -730px -196px;
+}
+#HQ {
+    background: url('cards.jfitz.png') no-repeat -803px -196px;
+}
+#HK {
+    background: url('cards.jfitz.png') no-repeat -876px -196px;
+}
+
+#DA {
+    background: url('cards.jfitz.png') no-repeat 0px -294px;
+}
+#D2 {
+    background: url('cards.jfitz.png') no-repeat -73px -294px;
+}
+#D3 {
+   background: url('cards.jfitz.png') no-repeat -146px -294px;
+}
+#D4 {
+   background: url('cards.jfitz.png') no-repeat -220px -294px;
+}
+#D5 {
+   background: url('cards.jfitz.png') no-repeat -292px -294px;
+}
+#D6 {
+   background: url('cards.jfitz.png') no-repeat -365px -294px;
+}
+#D7 {
+   background: url('cards.jfitz.png') no-repeat -438px -294px;
+}
+#D8 {
+    background: url('cards.jfitz.png') no-repeat -511px -294px;
+}
+#D9 {
+    background: url('cards.jfitz.png') no-repeat -584px -294px;
+}
+#D10 {
+    background: url('cards.jfitz.png') no-repeat -657px -294px;
+}
+#DJ {
+    background: url('cards.jfitz.png') no-repeat -730px -294px;
+}
+#DQ {
+    background: url('cards.jfitz.png') no-repeat -803px -294px;
+}
+#DK {
+    background: url('cards.jfitz.png') no-repeat -876px -294px;
+}
+
+
+/*
+div.sidebar {
+    float: right;
+    position: relative;
+    background: black;
+    left: 650px;
+}
+
+.sidebar p {
+    font-color: yellow;
+}
+
+.hidden {
+    background: url('card_back.png') no-repeat;
+    height: 98px;
+    z-index: 999
+}
+*/
