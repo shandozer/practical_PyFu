@@ -6,11 +6,10 @@ __author__ = Shannon Buckley, 9/11/16
 import random
 import sys
 import pygame
-import os
 from os import path
 from pygame.locals import *
 
-VERSION = '1.0.0'
+VERSION = '1.1.0'
 
 
 def load_png(name):
@@ -36,8 +35,8 @@ class Game(object):
 
     def __init__(self):
         self.game_on = False
-        self.player_hand = Hand()
-        self.dealer_hand = Hand()
+        self.player_hand = Hand((25, 200))
+        self.dealer_hand = Hand((25, 25))
         self.deck = Deck()
         self.deck.shuffle_cards()
         self.dealer_score = 0
@@ -48,6 +47,11 @@ class Game(object):
         self.SCREEN_HEIGHT = 600
         self.size = [self.SCREEN_WIDTH, self.SCREEN_HEIGHT]
 
+        # TODO: decide whether / where to implement this section
+        # pygame.init()
+        # self.screen = pygame.display.set_mode(self.size)
+        # self.background = pygame.Surface(screen.get_size())
+
         # self.all_sprites_list = pygame.sprite.Group()
         #
         # for card in self.player_hand.cards:
@@ -56,7 +60,10 @@ class Game(object):
 
     def deal_cards(self):
 
-        self.__init__()  # dump any cards they have, re-deal
+        self.deck = Deck()
+        self.player_hand.empty_hand()
+        self.dealer_hand.empty_hand()
+
         self.player_hand.add_card(self.deck.deal_card())
         self.dealer_hand.add_card(self.deck.deal_card())
         self.player_hand.add_card(self.deck.deal_card())
@@ -87,7 +94,7 @@ class Game(object):
                                                                   self.player_hand.get_value())
             print(self.outcome)
 
-            if self.player_hand.busted():
+            if self.player_hand.is_busted():
 
                 self.game_on = False
                 self.outcome = "You Busted!"
@@ -112,22 +119,25 @@ class Game(object):
 
             self.dealer_hand.add_card(next_card)
 
-            print "\nDealer's Hand is now: {}".format(self.dealer_hand)
+            print "\nDealer's Hand is now: {} ({})".format(self.dealer_hand, self.dealer_hand.get_value())
 
             print '\nDealer has: {}'.format(self.dealer_hand.get_value())
 
-        if self.dealer_hand.busted():
+        if self.dealer_hand.is_busted():
 
             self.outcome = "\n{}\nDealer Busted! PLAYER WINS!".format(72*'=')
             self.player_score += 1
 
         else:
-            if self.dealer_hand.get_value() >= self.player_hand.get_value() or self.player_hand.busted:
-                self.outcome = "Dealer Wins! :("
+            if self.dealer_hand.get_value() >= self.player_hand.get_value() or self.player_hand.is_busted():
+                self.outcome = "\n{}\nDealer Wins! :(".format(72 * '=')
                 self.player_score -= 1
-
+            elif len(self.player_hand.cards) == 5 and self.player_hand.get_value() <= 21:
+                self.outcome = "\n{}\n5 Cards without busting? LUCKY PLAYER Wins!:(".format(72 * '=')
             else:
-                self.outcome = "Player wins!"
+                self.outcome = "\n{}\nDealer ({}) | Player ({}) --> PLAYER Wins! :)".format(72 * '=',
+                                                                                            self.dealer_hand.get_value(),
+                                                                                            self.player_hand.get_value())
                 self.player_score += 1
 
         print self.outcome
@@ -160,22 +170,6 @@ class Game(object):
             print '\nExiting...'
             sys.exit()
 
-    # def display_frame(self, screen):
-    #     screen.fill((0, 255, 0))
-    #
-    #     if not self.game_on:
-    #
-    #         font = pygame.font.SysFont("serif", 25)
-    #         text = font.render("BlackJack", True, (0, 0, 0))  # text[3] == BLACK
-    #         center_x = (self.SCREEN_WIDTH // 2) - (text.get_width() // 2)
-    #         center_y = (self.SCREEN_HEIGHT // 2) - (text.get_height() // 2)
-    #         screen.blit(text, [center_x, center_y])
-    #
-    #     if self.game_on:
-    #         self.all_sprites_list.draw(screen)
-    #
-    #     pygame.display.flip()
-
     def write(self, info, color=(0, 0, 0), fontsize=24):
         game_font = pygame.font.SysFont("None", fontsize)
         text_to_write = game_font.render(info, True, color)
@@ -199,11 +193,18 @@ class Card(pygame.sprite.Sprite):
         'A': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10, 'J': 10, 'Q': 10, 'K': 10
 
         }
+    card_images = pygame.image.load('./assets/cards.jfitz.png')
+
+    CARD_SIZE = (73, 98)
+    CARD_CENTER = (36.5, 49)
 
     def __init__(self, rank, suit):
         pygame.sprite.Sprite.__init__(self)
         self.rank = rank
         self.suit = suit
+
+        self.image = Card.card_images
+        self.rect = self.image.get_rect()
 
     def get_rank(self):
         return self.rank
@@ -213,9 +214,6 @@ class Card(pygame.sprite.Sprite):
 
     def __str__(self):
         return self.rank + self.suit
-
-    def draw(self):
-        pass
 
 
 class Deck(object):
@@ -249,8 +247,8 @@ class Deck(object):
 
 class Hand(object):
 
-    def __init__(self):
-
+    def __init__(self, starting_position):
+        self.starting_position = starting_position
         self.cards = []
         self.total = len(self.cards)
 
@@ -294,12 +292,15 @@ class Hand(object):
 
                 print '\nBlackJack!'
 
-    def busted(self):
+    def is_busted(self):
 
         if self.get_value() > 21:
             return True
         else:
             return False
+
+    def empty_hand(self):
+        self.cards = []
 
 
 class SpriteSheet(object):
@@ -340,31 +341,30 @@ class SpriteSheet(object):
 
 def main():
 
-    pygame.init()
-
     g = Game()
 
     g.deal_cards()
 
     SIZE = [800, 600]
-    CARD_SIZE = (73, 98)
-    CARD_CENTER = (36.5, 49)
 
     bg_color = (0, 255, 0)
 
+    pygame.init()
     screen = pygame.display.set_mode(SIZE)
     pygame.display.set_caption("BlackJack with sprite sheet...")
 
     # fill BG
     screen.fill(bg_color)
-    pygame.display.flip()
 
     running = True
 
+    pygame.display.update()
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+    else:
+        print 'game over!'
 
         pygame.display.flip()
 
