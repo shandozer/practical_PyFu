@@ -24,15 +24,7 @@
 
 def match_ends(words):
 
-    count = 0
-    for word in words:
-
-        if len(word) >= 2:
-            if word[0] == word[len(word)-1]:
-               # print word
-                count += 1
-
-    return count
+    pass
 
 
 # B. front_x

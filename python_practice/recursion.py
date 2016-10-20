@@ -12,7 +12,3 @@ Your function can have loops; it just needs to also be recursive.
 def permute_string(input_string):
 
     pass
-
-set_of_strings = permute_string('this is a test string')
-
-print sorted(set_of_strings)

@@ -7,6 +7,7 @@
 # http://code.google.com/edu/languages/google-python-class/
 
 import os
+from os import path
 import re
 import sys
 import urllib
@@ -46,20 +47,32 @@ def read_urls(filename):
 
                 urls.append(img)
 
+    f.close()
+
     return sorted(urls)
 
 
 def download_images(img_urls, dest_dir):
-    """Given the urls already in the correct order, downloads
-    each image into the given directory.
-    Gives the images local filenames img0, img1, and so on.
-    Creates an index.html in the directory
-    with an img tag to show each local image file.
-    Creates the directory if necessary.
     """
-    if os.path.exists(os.path.join(dest_dir)):
-        html = open(os.path.join(dest_dir, 'image.html'), 'w')
+    Given a sorted url list, downloads each image into the given directory.
 
+    Gives the images local filenames img0, img1, and so on.
+
+    Creates an index.html in the directory with an img tag to show each local image file.
+
+    Creates the destination directory if necessary.
+    """
+
+    for img in img_urls:
+        page = urllib.urlopen(img)
+
+    dest_dir = path.join(dest_dir)
+
+    if not path.exists(dest_dir):
+
+        os.makedirs(dest_dir, 777)
+
+    html = open(path.join(dest_dir, 'image.html'), 'rw')
 
 
 def main():
@@ -70,6 +83,7 @@ def main():
         sys.exit(1)
 
     todir = ''
+
     if args[0] == '--todir':
         todir = args[1]
         del args[0:2]
@@ -82,4 +96,5 @@ def main():
         print '\n'.join(img_urls)
 
 if __name__ == '__main__':
+
     main()
