@@ -7,7 +7,7 @@
    - JS libraries (or CDNs) for: 
      - D3
      - crossfilter
-     - dccharts
+     - dc
      - jquery
      - bootstrap
    - Bootstrap.css
