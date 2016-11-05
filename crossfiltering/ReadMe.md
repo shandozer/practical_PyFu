@@ -11,12 +11,13 @@
      - jquery
      - bootstrap
    - Bootstrap.css
+   - dc.css
    - Some Datasets! 
     
 ## Projects 
 ### cross_filter_example.html
  - An interactive data dashboard representing a particular New Zealand Earthquake dataset 
- - May be combined with _quake_datafeed.py_ for example, to extend this to realtime / time-windowed datasets 
+ - May be combined with _quake_datafeed.py_ to extend this to realtime / time-windowed datasets 
  
 ### adhd_subject_demo_dash.html
  - Subject Selection Dash (Prototype) for ADHD & ASD-related fMRI studies of the brain 
