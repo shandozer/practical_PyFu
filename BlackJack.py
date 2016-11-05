@@ -9,7 +9,7 @@ import pygame
 from os import path
 from pygame.locals import *
 
-VERSION = '1.1.0'
+VERSION = '1.1.1'
 
 
 def load_png(name):
@@ -34,7 +34,7 @@ class Game(object):
     CHOICES = ['hit', 'stand', 'deal']
 
     def __init__(self):
-        self.game_on = False
+        self.game_on = ''
         self.player_hand = Hand((25, 200))
         self.dealer_hand = Hand((25, 25))
         self.deck = Deck()
@@ -60,7 +60,6 @@ class Game(object):
 
     def deal_cards(self):
 
-        self.deck = Deck()
         self.player_hand.empty_hand()
         self.dealer_hand.empty_hand()
 
