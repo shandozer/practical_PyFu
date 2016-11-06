@@ -11,7 +11,7 @@ import argparse
 import requests
 import json
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 LAST_MOD = '11/5/16'
 
 # Customize
@@ -26,31 +26,45 @@ def get_parser():
     """
     parser = argparse.ArgumentParser(description=program_desc)
 
-    # Customize
-    parser.add_argument('-o1', '--option1', dest='option1_arg', action='store',
-                        help="does what option1 is supposed to do")
+    parser.add_argument('-l', '--list', dest='ip_list', action='store',
+                        help="path to list containing single column of IP addresses that you want to geocode.")
+
+    parser.add_argument('-o', '--output_to', dest='output_path', action='store',
+                        help="path to some output dir/filename.txt you want to write results to.")
 
     return parser
 
 
 def main():
 
-    send_url = 'http://freegeoip.net/json'
-    r = requests.get(send_url)
-    j = json.loads(r.text)
-    lat = j['latitude']
-    lon = j['longitude']
-
-    print('\nYour Current Location (Lat, Lon): {}'.format((lat, lon)))
-
     parser = get_parser()
     args = parser.parse_args()
 
-    # Customize (refactor opt1 -> blah)
-    if args.option1_arg:
-        # Customize
-        what_option_one_does = args.option1_arg1
-        print('\nOption Selected: {}'.format(what_option_one_does))
+    if args.ip_list:
+
+        list_file_path = path.join(args.ip_list)
+
+        try:
+            with open(list_file_path, 'r') as f:
+                ip_list_file_contents = f.read()
+
+        except Exception, e:
+            print('something wrong?', e)
+
+        finally:
+
+            # TODO: swap this out later
+            print(ip_list_file_contents)
+
+    else:
+
+        send_url = 'http://freegeoip.net/json'
+        r = requests.get(send_url)
+        j = json.loads(r.text)
+        lat = j['latitude']
+        lon = j['longitude']
+
+        print('\nYour Current Location (Lat, Lon): {}'.format((lat, lon)))
 
 
 if __name__ == '__main__':
