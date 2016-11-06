@@ -3,9 +3,9 @@
 __author__ = ShannonB., 10/2/16
 """
 
-import os
 import sys
 from os import path
+import json
 from pymongo import MongoClient
 
 VERSION = '0.1.0'
@@ -32,7 +32,17 @@ def get_mongo_database(db_name, host='localhost', port=27017, username=None, pas
 
 
 def main():
-    pass
+
+    with open(path.join(path.dirname(sys.argv[0]), 'nobel_winners', 'nobel_winners.json')) as f:
+        nobel_winners = json.load(f)
+        f.close()
+
+    print nobel_winners
+
+    # db = get_mongo_database(DB_NOBEL_PRIZE)
+    # coll = db[COLL_WINNERS]
+    #
+    # coll.insert(nobel_winners)
 
 if __name__ == '__main__':
     main()
